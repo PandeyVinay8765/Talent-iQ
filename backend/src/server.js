@@ -3,7 +3,7 @@ import path from 'path';
 import cors from 'cors';
 import { ENV } from './lib/env.js';
 import { connectDB } from './lib/db.js';
-import {serve,functions}from 'inngest';
+import { serve ,functions} from 'inngest/express';
 
 const app=express();
 app.use(express.json());
