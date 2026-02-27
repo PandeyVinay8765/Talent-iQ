@@ -8,12 +8,14 @@ const syncUser=inngest.createFunction({
     id:'sync-user'},
     {event:'clerk/user.created'},
     async ({event})=>{
+         console.log("Event received");
     await connectDB()
+    console.log("Mongo connected");
     
-    const {id,email_address,first_name,last_name,image_url}=event.data
-    const newUSer={
+    const {id,email_addresses,first_name,last_name,image_url}=event.data
+    const newUser={
         clerkId:id,
-        email:email_address[0]?.email_address,
+        email:email_addresses[0]?.email_address,
         name:`${first_name||""} ${last_name||""}`,
         profileImage:image_url
 
@@ -25,7 +27,7 @@ const syncUser=inngest.createFunction({
 
 const deleteUserFromDB=inngest.createFunction({
     id:'delete-user-from-db'},
-    {event:'clerk/user.created'},
+    {event:'clerk/user.deleted'},
     async ({event})=>{
     await connectDB()
     
