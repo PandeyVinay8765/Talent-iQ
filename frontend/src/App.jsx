@@ -1,6 +1,6 @@
+import "./App.css"
 
-import './App.css'
-import { SignInButton, SignOutButton } from '@clerk/clerk-react'
+import { SignInButton, SignOutButton, UserButton ,SignedIn,SignedOut} from '@clerk/clerk-react'
 
 function App() {
  
@@ -8,10 +8,16 @@ function App() {
   return (
     <>
       <h2>welcome to App jsx</h2>
-      <SignOutButton>
-      <SignInButton mode='modal'/>
-      </SignOutButton>
-      
+      <SignedOut>
+      <SignInButton mode='modal'>
+        <button>Sign Up</button>
+      </SignInButton>
+      </SignedOut>
+      <SignedIn>
+        <SignOutButton/>
+      </SignedIn>
+
+      <UserButton/>
  </>
   )
 }
