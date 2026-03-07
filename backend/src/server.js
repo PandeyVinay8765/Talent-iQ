@@ -5,9 +5,11 @@ import { ENV } from './lib/env.js';
 import { connectDB } from './lib/db.js';
 import { inngest ,functions} from './lib/inngest.js';
 import { serve} from 'inngest/express';
+import { clerkMiddleware } from '@clerk/express'
 
 const app=express();
 app.use(express.json());
+app.use(clerkMiddleware())
 app.use(cors({
     origin:ENV.CLIENT_URL,credentials:true
 }))
@@ -15,6 +17,9 @@ const __dirname=path.resolve();
 app.use('/api/inngest',serve({client:inngest,functions}))
 app.get('/health',(req,res) => {
     res.status(201).json({msg:"backend working"})
+})
+app.get('/books',(req,res) => {
+    res.status(200).json({msg:"this is book"})
 })
 app.get('/books',(req,res) => {
     res.status(200).json({msg:"this is book"})
