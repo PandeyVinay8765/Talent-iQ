@@ -1,46 +1,50 @@
-// Piston API is a service for code execution
+// Glot.io API for free unlimited code execution
+// Get your free token at: https://glot.io/account/token
 
-const PISTON_API = "https://emkc.org/api/v2/piston";
+const GLOT_API = "https://glot.io/api/run";
+const GLOT_TOKEN = process.env.GLOT_API_TOKEN;
 
-const LANGUAGE_VERSIONS = {
-  javascript: { language: "javascript", version: "18.15.0" },
-  python: { language: "python", version: "3.10.0" },
-  java: { language: "java", version: "15.0.2" },
-  cpp: { language: "cpp", version: "10.2.0" }
+const LANGUAGE_CONFIG = {
+  javascript: { slug: "javascript", version: "latest", filename: "main.js" },
+  python:     { slug: "python",     version: "latest", filename: "main.py" },
+  java:       { slug: "java",       version: "latest", filename: "Main.java" },
+  cpp:        { slug: "cpp",        version: "latest", filename: "main.cpp" },
 };
 
 /**
  * @param {string} language - programming language
- * @param {string} code - source code to executed
+ * @param {string} code - source code to execute
  * @returns {Promise<{success:boolean, output?:string, error?: string}>}
  */
 export async function executeCode(language, code) {
   try {
-    const languageConfig = LANGUAGE_VERSIONS[language];
+    const config = LANGUAGE_CONFIG[language];
 
-    if (!languageConfig) {
+    if (!config) {
       return {
         success: false,
         error: `Unsupported language: ${language}`,
       };
     }
 
-    const response = await fetch(`${PISTON_API}/execute`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        language: languageConfig.language,
-        version: languageConfig.version,
-        files: [
-          {
-            name: `main.${getFileExtension(language)}`,
-            content: code,
-          },
-        ],
-      }),
-    });
+    const response = await fetch(
+      `${GLOT_API}/${config.slug}/${config.version}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${GLOT_TOKEN}`,
+        },
+        body: JSON.stringify({
+          files: [
+            {
+              name: config.filename,
+              content: code,
+            },
+          ],
+        }),
+      }
+    );
 
     if (!response.ok) {
       return {
@@ -51,8 +55,8 @@ export async function executeCode(language, code) {
 
     const data = await response.json();
 
-    const output = data.run.output || "";
-    const stderr = data.run.stderr || "";
+    const output = data.stdout || "";
+    const stderr = data.stderr || "";
 
     if (stderr) {
       return {
@@ -66,20 +70,11 @@ export async function executeCode(language, code) {
       success: true,
       output: output || "No output",
     };
+
   } catch (error) {
     return {
       success: false,
       error: `Failed to execute code: ${error.message}`,
     };
   }
-}
-
-function getFileExtension(language) {
-  const extensions = {
-    javascript: "js",
-    python: "py",
-    java: "java",
-    cpp: "cpp" // Added this
-  };
-  return extensions[language] || "txt";
 }
