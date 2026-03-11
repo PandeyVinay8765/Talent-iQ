@@ -17,7 +17,7 @@ function ProblemPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [currentProblemId, setCurrentProblemId] = useState("two-sum");
+ const [currentProblemId, setCurrentProblemId] = useState("find-number");
   const [selectedLanguage, setSelectedLanguage] = useState("javascript");
   const [code, setCode] = useState(PROBLEMS[currentProblemId].starterCode.javascript);
   const [output, setOutput] = useState(null);
