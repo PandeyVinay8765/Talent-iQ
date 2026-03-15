@@ -3,7 +3,7 @@
 ![MERN](https://img.shields.io/badge/Stack-MERN-green)
 ![AI](https://img.shields.io/badge/AI-Powered-blue)
 ![Status](https://img.shields.io/badge/Status-Live-success)
-![License](https://img.shields.io/badge/License-MIT-blue)
+
 
 **Talent-iQ** is an **AI-powered coding interview preparation platform** that helps developers practice coding problems, execute code online, and interact with an AI assistant for guidance.
 
