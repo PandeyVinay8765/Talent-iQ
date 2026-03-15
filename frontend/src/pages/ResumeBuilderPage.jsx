@@ -70,7 +70,7 @@ function ResumeBuilderPage() {
     try {
       const { data } = await axios.post("/resume/build", form);
       setGeneratedResume(data.resume);
-      setCurrentStep(7); // result step
+      setCurrentStep(7);
       toast.success("Resume generated successfully!");
     } catch (error) {
       toast.error("Failed to generate resume. Please try again.");
@@ -83,7 +83,6 @@ function ResumeBuilderPage() {
   const handleDownloadPDF = async () => {
     setDownloadingPdf(true);
     try {
-      // Use browser's print to PDF functionality
       const printWindow = window.open("", "_blank");
       printWindow.document.write(`
         <!DOCTYPE html>
@@ -285,37 +284,37 @@ function ResumeBuilderPage() {
                       <div className="form-control">
                         <label className="label"><span className="label-text font-medium">Full Name *</span></label>
                         <input name="name" value={form.name} onChange={handleChange}
-                          placeholder="e.g. Vinay Pandey"
+                          placeholder="e.g. John Smith"
                           className="input input-bordered w-full" />
                       </div>
                       <div className="form-control">
                         <label className="label"><span className="label-text font-medium">Email *</span></label>
                         <input name="email" value={form.email} onChange={handleChange}
-                          placeholder="e.g. vinay@gmail.com"
+                          placeholder="e.g. john.smith@gmail.com"
                           className="input input-bordered w-full" />
                       </div>
                       <div className="form-control">
                         <label className="label"><span className="label-text font-medium">Phone</span></label>
                         <input name="phone" value={form.phone} onChange={handleChange}
-                          placeholder="e.g. +91-9532205639"
+                          placeholder="e.g. +1-555-123-4567"
                           className="input input-bordered w-full" />
                       </div>
                       <div className="form-control">
                         <label className="label"><span className="label-text font-medium">LinkedIn</span></label>
                         <input name="linkedin" value={form.linkedin} onChange={handleChange}
-                          placeholder="linkedin.com/in/yourname"
+                          placeholder="e.g. linkedin.com/in/johnsmith"
                           className="input input-bordered w-full" />
                       </div>
                       <div className="form-control">
                         <label className="label"><span className="label-text font-medium">GitHub</span></label>
                         <input name="github" value={form.github} onChange={handleChange}
-                          placeholder="github.com/yourname"
+                          placeholder="e.g. github.com/johnsmith"
                           className="input input-bordered w-full" />
                       </div>
                       <div className="form-control">
                         <label className="label"><span className="label-text font-medium">Portfolio</span></label>
                         <input name="portfolio" value={form.portfolio} onChange={handleChange}
-                          placeholder="yourportfolio.com"
+                          placeholder="e.g. johnsmith.dev"
                           className="input input-bordered w-full" />
                       </div>
                     </div>
@@ -323,7 +322,7 @@ function ResumeBuilderPage() {
                       <label className="label"><span className="label-text font-medium">Professional Summary</span></label>
                       <textarea name="summary" value={form.summary} onChange={handleChange}
                         rows={3}
-                        placeholder="Brief description of your professional background and goals..."
+                        placeholder="e.g. Full-Stack Developer with 2 years of experience building scalable web applications using React and Node.js. Passionate about clean code and performance optimization."
                         className="textarea textarea-bordered w-full resize-none" />
                     </div>
                   </div>
@@ -341,18 +340,19 @@ function ResumeBuilderPage() {
                     </p>
                     <textarea name="education" value={form.education} onChange={handleChange}
                       rows={8}
-                      placeholder={`Example:
-B.Tech in Electrical Engineering
-Institute of Engineering and Technology, Lucknow
-Aug 2022 - June 2026
+                      placeholder={`e.g.
+
+B.Tech in Computer Science Engineering
+ABC University, New Delhi
+Aug 2020 - June 2024 | CGPA: 8.5/10
 
 Senior Secondary (Class XII)
-Shree Mahaprabhu Public School, Prayagraj
-Completed: 2021 | Percentage: 93.6%
+XYZ School, Mumbai
+Completed: 2020 | Percentage: 91.2%
 
 Secondary (Class X)
-Shree Mahaprabhu Public School, Prayagraj
-Completed: 2019 | Percentage: 89.4%`}
+XYZ School, Mumbai
+Completed: 2018 | Percentage: 87.6%`}
                       className="textarea textarea-bordered w-full resize-none text-sm" />
                   </div>
                 )}
@@ -369,13 +369,20 @@ Completed: 2019 | Percentage: 89.4%`}
                     </p>
                     <textarea name="experience" value={form.experience} onChange={handleChange}
                       rows={10}
-                      placeholder={`Example:
-Software Developer Intern
-HashedBit Innovations Pvt Ltd | Remote
-Feb 2026 - Present
-- Collaborating with engineering team to design and deploy scalable software solutions
-- Participating in full SDLC, focusing on debugging and code optimization
-- Implementing modern web technologies to improve application performance`}
+                      placeholder={`e.g.
+
+Frontend Developer Intern
+Tech Solutions Pvt Ltd | Remote
+Jan 2024 - April 2024
+- Built reusable React components that reduced development time by 30%
+- Integrated REST APIs and improved page load speed by 40% using lazy loading
+- Collaborated with backend team to design and implement 5 new product features
+
+Full Stack Intern
+StartupXYZ | Bangalore
+June 2023 - Aug 2023
+- Developed user authentication system using JWT and bcrypt
+- Created RESTful APIs for product catalog serving 10,000+ daily requests`}
                       className="textarea textarea-bordered w-full resize-none text-sm" />
                   </div>
                 )}
@@ -392,12 +399,15 @@ Feb 2026 - Present
                     </p>
                     <textarea name="skills" value={form.skills} onChange={handleChange}
                       rows={8}
-                      placeholder={`Example:
-Languages: C++, JavaScript (ES6+), SQL, HTML5, CSS3
-Frameworks: React.js, Node.js, Express.js, Tailwind CSS
-Databases: MongoDB, MySQL
-Tools: Git, GitHub, VS Code, Postman
-CS Fundamentals: DSA, OOP, DBMS, OS, Computer Networks`}
+                      placeholder={`e.g.
+
+Languages: JavaScript, TypeScript, Python, C++, HTML5, CSS3
+Frontend: React.js, Next.js, Tailwind CSS, Redux, Vite
+Backend: Node.js, Express.js, REST APIs, GraphQL, WebSockets
+Databases: MongoDB, PostgreSQL, MySQL, Redis
+Tools: Git, GitHub, Docker, Postman, VS Code, Figma
+Cloud: AWS (S3, EC2), Vercel, Render, Netlify
+CS Fundamentals: DSA, OOP, DBMS, Operating Systems, Computer Networks`}
                       className="textarea textarea-bordered w-full resize-none text-sm" />
                   </div>
                 )}
@@ -414,18 +424,19 @@ CS Fundamentals: DSA, OOP, DBMS, OS, Computer Networks`}
                     </p>
                     <textarea name="projects" value={form.projects} onChange={handleChange}
                       rows={10}
-                      placeholder={`Example:
-Chatify - Real-Time Chat Application
-Tech: React, Node.js, Express, MongoDB, Socket.IO, JWT
-- Built full-stack real-time messaging app with AI assistant powered by Groq API
-- Implemented Socket.IO for real-time communication and online presence tracking
-- Integrated JWT authentication and Zustand for global state management
-Live: chatify-o2yw.onrender.com | GitHub: github.com/PandeyVinay8765/ChatiFy
+                      placeholder={`e.g.
 
-Talent IQ - Live Coding Platform
-Tech: React, Node.js, MongoDB, Clerk, Stream, Inngest
-- Developed collaborative coding platform with real-time video and chat
-- Integrated live code editor with multiple language support`}
+ShopEasy - Full Stack E-commerce Platform
+Tech: React.js, Node.js, Express.js, MongoDB, Stripe, JWT, Tailwind CSS
+- Built complete e-commerce platform with product listings, cart, and Stripe payments
+- Implemented JWT authentication with role-based access for admin and customers
+- Optimized MongoDB queries reducing API response time by 50%
+Live: shopeasy.onrender.com | GitHub: github.com/johnsmith/shopeasy
+
+TaskFlow - Real-Time Project Management App
+Tech: React.js, Node.js, Socket.IO, PostgreSQL, Redis
+- Developed Kanban-style project management tool with real-time drag-and-drop updates
+- Used Socket.IO for live collaboration supporting 50+ concurrent users per board`}
                       className="textarea textarea-bordered w-full resize-none text-sm" />
                   </div>
                 )}
@@ -442,12 +453,15 @@ Tech: React, Node.js, MongoDB, Clerk, Stream, Inngest
                     </p>
                     <textarea name="achievements" value={form.achievements} onChange={handleChange}
                       rows={8}
-                      placeholder={`Example:
-- TCS CodeVita Season 13 - Cleared Round 1 (2025)
-- Codeforces Pupil - Peak rating 1310+
-- CodeChef 3-Star - Maximum rating 1620+
-- Muskan Initiative - Volunteer to donate clothing to underprivileged students
-- Parmath College Society - Provided educational support to underprivileged students`}
+                      placeholder={`e.g.
+
+- LeetCode - Solved 500+ problems, peak rating 1850 (Top 8%)
+- Codeforces - Pupil rated 1300+
+- Google Cloud Certified - Associate Cloud Engineer (2024)
+- Hackerrank - 5-Star Gold Badge in Problem Solving
+- Smart India Hackathon 2023 - Finalist (Top 50 out of 5000+ teams)
+- AWS Certified Cloud Practitioner (2023)
+- NSS Volunteer - Organized 3 blood donation camps benefiting 200+ people`}
                       className="textarea textarea-bordered w-full resize-none text-sm" />
                   </div>
                 )}
