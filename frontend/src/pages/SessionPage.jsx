@@ -1,5 +1,5 @@
 import { useUser } from "@clerk/clerk-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useEndSession, useJoinSession, useSessionById } from "../hooks/useSessions";
 import { PROBLEMS } from "../data/problems";
@@ -10,6 +10,7 @@ import { getDifficultyBadgeClass } from "../lib/utils";
 import { Loader2Icon, LogOutIcon, PhoneOffIcon } from "lucide-react";
 import CodeEditorPanel from "../components/CodeEditorPanel";
 import OutputPanel from "../components/OutputPanel";
+import { useCodeSync } from "../hooks/useCodeSync";
 
 import useStreamClient from "../hooks/useStreamClient";
 import { StreamCall, StreamVideo } from "@stream-io/video-react-sdk";
@@ -38,7 +39,6 @@ function SessionPage() {
     isParticipant
   );
 
-  // find the problem data based on session problem title
   const problemData = session?.problem
     ? Object.values(PROBLEMS).find((p) => p.title === session.problem)
     : null;
@@ -46,24 +46,34 @@ function SessionPage() {
   const [selectedLanguage, setSelectedLanguage] = useState("javascript");
   const [code, setCode] = useState(problemData?.starterCode?.[selectedLanguage] || "");
 
-  // auto-join session if user is not already a participant and not the host
+  // ── Real-time code sync ──
+  const { emitCodeChange, emitLanguageChange } = useCodeSync({
+    sessionId: id,
+    userId: user?.id,
+    onCodeSync: ({ code: syncedCode, language: syncedLang }) => {
+      setCode(syncedCode);
+      setSelectedLanguage(syncedLang);
+    },
+    onCodeUpdate: ({ code: updatedCode }) => {
+      setCode(updatedCode);
+    },
+    onLanguageUpdate: ({ language: updatedLang, code: updatedCode }) => {
+      setSelectedLanguage(updatedLang);
+      setCode(updatedCode);
+    },
+  });
+
   useEffect(() => {
     if (!session || !user || loadingSession) return;
     if (isHost || isParticipant) return;
-
     joinSessionMutation.mutate(id, { onSuccess: refetch });
-
-    // remove the joinSessionMutation, refetch from dependencies to avoid infinite loop
   }, [session, user, loadingSession, isHost, isParticipant, id]);
 
-  // redirect the "participant" when session ends
   useEffect(() => {
     if (!session || loadingSession) return;
-
     if (session.status === "completed") navigate("/dashboard");
   }, [session, loadingSession, navigate]);
 
-  // update code when problem loads or changes
   useEffect(() => {
     if (problemData?.starterCode?.[selectedLanguage]) {
       setCode(problemData.starterCode[selectedLanguage]);
@@ -73,16 +83,22 @@ function SessionPage() {
   const handleLanguageChange = (e) => {
     const newLang = e.target.value;
     setSelectedLanguage(newLang);
-    // use problem-specific starter code
     const starterCode = problemData?.starterCode?.[newLang] || "";
     setCode(starterCode);
     setOutput(null);
+    // Sync language change to other user
+    emitLanguageChange(newLang, starterCode);
   };
+
+  const handleCodeChange = useCallback((value) => {
+    setCode(value);
+    // Sync code change to other user in real time
+    emitCodeChange(value, selectedLanguage);
+  }, [selectedLanguage, emitCodeChange]);
 
   const handleRunCode = async () => {
     setIsRunning(true);
     setOutput(null);
-
     const result = await executeCode(selectedLanguage, code);
     setOutput(result);
     setIsRunning(false);
@@ -90,7 +106,6 @@ function SessionPage() {
 
   const handleEndSession = () => {
     if (confirm("Are you sure you want to end this session? All participants will be notified.")) {
-      // this will navigate the HOST to dashboard
       endSessionMutation.mutate(id, { onSuccess: () => navigate("/dashboard") });
     }
   };
@@ -237,7 +252,7 @@ function SessionPage() {
                       code={code}
                       isRunning={isRunning}
                       onLanguageChange={handleLanguageChange}
-                      onCodeChange={(value) => setCode(value)}
+                      onCodeChange={handleCodeChange}
                       onRunCode={handleRunCode}
                     />
                   </Panel>
