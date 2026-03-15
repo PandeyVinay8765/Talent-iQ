@@ -284,37 +284,37 @@ function ResumeBuilderPage() {
                       <div className="form-control">
                         <label className="label"><span className="label-text font-medium">Full Name *</span></label>
                         <input name="name" value={form.name} onChange={handleChange}
-                          placeholder="e.g. John Smith"
+                          placeholder="e.g. XYZ Pandey"
                           className="input input-bordered w-full" />
                       </div>
                       <div className="form-control">
                         <label className="label"><span className="label-text font-medium">Email *</span></label>
                         <input name="email" value={form.email} onChange={handleChange}
-                          placeholder="e.g. john.smith@gmail.com"
+                          placeholder="e.g. Email@gmail.com"
                           className="input input-bordered w-full" />
                       </div>
                       <div className="form-control">
                         <label className="label"><span className="label-text font-medium">Phone</span></label>
                         <input name="phone" value={form.phone} onChange={handleChange}
-                          placeholder="e.g. +1-555-123-4567"
+                          placeholder="e.g. +91-555-123-4567"
                           className="input input-bordered w-full" />
                       </div>
                       <div className="form-control">
                         <label className="label"><span className="label-text font-medium">LinkedIn</span></label>
                         <input name="linkedin" value={form.linkedin} onChange={handleChange}
-                          placeholder="e.g. linkedin.com/in/johnsmith"
+                          placeholder="e.g. linkedin.com/in/yourid"
                           className="input input-bordered w-full" />
                       </div>
                       <div className="form-control">
                         <label className="label"><span className="label-text font-medium">GitHub</span></label>
                         <input name="github" value={form.github} onChange={handleChange}
-                          placeholder="e.g. github.com/johnsmith"
+                          placeholder="e.g. github.com/xyzpandey"
                           className="input input-bordered w-full" />
                       </div>
                       <div className="form-control">
                         <label className="label"><span className="label-text font-medium">Portfolio</span></label>
                         <input name="portfolio" value={form.portfolio} onChange={handleChange}
-                          placeholder="e.g. johnsmith.dev"
+                          placeholder="e.g. PortFolio.Pandey.dev"
                           className="input input-bordered w-full" />
                       </div>
                     </div>
@@ -343,15 +343,15 @@ function ResumeBuilderPage() {
                       placeholder={`e.g.
 
 B.Tech in Computer Science Engineering
-ABC University, New Delhi
+ABC University,Lucknow
 Aug 2020 - June 2024 | CGPA: 8.5/10
 
 Senior Secondary (Class XII)
-XYZ School, Mumbai
-Completed: 2020 | Percentage: 91.2%
+XYZ School, Prayagraj
+Completed: 2020 | Percentage: 93.6%
 
 Secondary (Class X)
-XYZ School, Mumbai
+XYZ School, Prayagraj
 Completed: 2018 | Percentage: 87.6%`}
                       className="textarea textarea-bordered w-full resize-none text-sm" />
                   </div>
