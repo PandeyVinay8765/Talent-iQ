@@ -44,11 +44,7 @@ https://talent-iq-t3ck.onrender.com/
 
 ---
 
-## 📸 Screenshots
 
-*Add screenshots of the platform UI here*
-
----
 
 ## ⚙️ Installation
 
