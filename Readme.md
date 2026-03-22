@@ -1,11 +1,11 @@
-# Talent-iQ 🧠
+# Talent-IQ 🧠
 
 ![MERN](https://img.shields.io/badge/Stack-MERN-green)
 ![AI](https://img.shields.io/badge/AI-Powered-blue)
+![Realtime](https://img.shields.io/badge/Realtime-Socket.io-orange)
 ![Status](https://img.shields.io/badge/Status-Live-success)
 
-
-**Talent-iQ** is an **AI-powered coding interview preparation platform** that helps developers practice coding problems, execute code online, and interact with an AI assistant for guidance.
+**Talent-IQ** is an **AI-powered coding interview preparation platform** that lets developers practice coding problems, run code online, and conduct live interview sessions with real-time video, chat, and a shared code editor.
 
 🌐 **Live Demo:**
 https://talent-iq-t3ck.onrender.com/
@@ -14,13 +14,14 @@ https://talent-iq-t3ck.onrender.com/
 
 ## ✨ Features
 
-* 🤖 **AI Coding Assistant** for solving problems
-* 💻 **Online Code Editor** with real-time execution
-* ⚡ **Run code instantly** using Piston API
-* 🧠 **Interview practice environment**
-* 🔐 Secure authentication with JWT
-* 📊 Session tracking for practice history
-* 🌐 Multi-language coding support
+* 📹 **Live video calls** inside interview sessions
+* 💬 **Real-time chat** between interviewer and candidate
+* 💻 **Shared code editor** — both users see and edit the same code live
+* ⚡ **Run code instantly** in Python, JavaScript, Java and C++
+* 🤖 **AI coding assistant** for guidance during practice
+* 🔐 **Secure authentication** with Clerk
+* 📊 **Session tracking** for practice history
+* 🧠 **Curated problem set** with Easy, Medium and Hard levels
 
 ---
 
@@ -31,7 +32,9 @@ https://talent-iq-t3ck.onrender.com/
 * React.js
 * Vite
 * Tailwind CSS
+* DaisyUI
 * Axios
+* Clerk (Auth UI)
 
 ### Backend
 
@@ -39,20 +42,21 @@ https://talent-iq-t3ck.onrender.com/
 * Express.js
 * MongoDB
 * Mongoose
+* Clerk
+* Stream SDK (Video + Chat)
+* Socket.io
 * Inngest
-* Groq API
+* Piston API
 
 ---
-
-
 
 ## ⚙️ Installation
 
 ### Clone the repository
 
 ```bash
-git clone https://github.com/your-username/Talent-iQ.git
-cd Talent-iQ
+git clone https://github.com/your-username/Talent-IQ.git
+cd Talent-IQ
 ```
 
 ---
@@ -69,8 +73,9 @@ Create `.env`
 ```
 PORT=5000
 MONGO_URI=your_mongodb_connection
-JWT_SECRET=your_secret_key
-PISTON_API_URL=https://emkc.org/api/v2/piston
+CLERK_SECRET_KEY=your_clerk_key
+STREAM_API_KEY=your_stream_key
+STREAM_API_SECRET=your_stream_secret
 ```
 
 Run backend
@@ -93,36 +98,61 @@ npm run dev
 
 ## 📡 API Endpoints
 
-| Method | Endpoint         | Description              |
-| ------ | ---------------- | ------------------------ |
-| POST   | /api/auth/signup | Register user            |
-| POST   | /api/auth/login  | Login user               |
-| POST   | /api/code/run    | Execute code             |
-| POST   | /api/ai/chat     | AI assistant             |
-| POST   | /api/session     | Create interview session |
+| Method | Endpoint              | Description               |
+| ------ | --------------------- | ------------------------- |
+| POST   | /api/sessions         | Create interview session  |
+| GET    | /api/sessions/active  | Get all active sessions   |
+| GET    | /api/sessions/recent  | Get my recent sessions    |
+| POST   | /api/sessions/:id/join | Join a session           |
+| POST   | /api/sessions/:id/end  | End a session            |
+| POST   | /api/code/run         | Execute code              |
+| GET    | /api/chat/token       | Get Stream chat token     |
 
 ---
 
 ## 🚀 Future Improvements
 
-* Live mock interviews
-* AI feedback on solutions
+* AI feedback on submitted solutions
 * Coding leaderboard
-* Problem difficulty levels
-* Video interview integration
+* Mock interview scheduling
+* Interview recording and playback
+* Problem difficulty rating by users
 
 ---
 
 ## 👨‍💻 Project Contribution
 
 ### 🔹 Vinay Pandey
-- Frontend (React + Tailwind UI)
-- API integration
-- JWT Authentication (Login/Signup) – implemented collaboratively
+
+**Frontend**
+- Home landing page
+- Dashboard page — shows active and recent sessions
+- Problems list page with difficulty levels
+- Resume builder page
+- Navbar component
+- Protected routes — only logged in users can access pages
+- UI design and styling across the whole app
+
+**Backend**
+- Database models — User and Session
+- MongoDB connection and environment variable setup
+- Server setup and all API routes registered
+
+---
 
 ### 🔹 Vicky Sahani
-- Real-time communication using Socket.io
-  - Socket setup and connection handling
-  - Message emit/listen system
-  - Online/offline user tracking
-- Contributed to JWT authentication and backend logic
+
+**Backend**
+- Video calling inside interview sessions
+- Live chat between both users during a session
+- Creating a new interview session
+- Joining an existing session as participant
+- Ending a session and cleaning everything up
+- Auto-saving new users to database on signup
+- Running code in Python, JavaScript, Java and C++
+- Real-time code sync so both users see same code
+
+**Frontend**
+- Active sessions list on dashboard
+- Live code editor panel inside session
+- Problem description with examples and constraints
