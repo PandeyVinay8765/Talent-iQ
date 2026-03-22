@@ -40,7 +40,7 @@ https://talent-iq-t3ck.onrender.com/
 * MongoDB
 * Mongoose
 * Inngest
-* Piston API
+* Groq API
 
 ---
 
