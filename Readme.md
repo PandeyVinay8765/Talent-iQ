@@ -117,6 +117,16 @@ npm run dev
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Project Contribution
 
-Vinay Pandey
+### 🔹 Vinay Pandey
+- Frontend (React + Tailwind UI)
+- API integration
+- JWT Authentication (Login/Signup) – implemented collaboratively
+
+### 🔹 Vicky Sahani
+- Real-time communication using Socket.io
+  - Socket setup and connection handling
+  - Message emit/listen system
+  - Online/offline user tracking
+- Contributed to JWT authentication and backend logic
