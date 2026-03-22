@@ -1,0 +1,87 @@
+# Contributing to Talent-IQ
+
+Talent-IQ is an AI-powered coding interview preparation platform built with the MERN stack.
+
+---
+
+## Contributors
+
+### Vinay Pandey — Frontend Developer & Project Lead
+
+- All frontend pages — home, dashboard, problems, resume builder
+- UI design and styling across the entire application
+- Navigation and protected routes — only logged in users can access
+- Dashboard showing active and recent sessions
+- Problems list page with difficulty levels
+- Resume builder page UI
+
+### Vicky Sahani — Backend Developer & Systems
+
+- Video calling inside interview sessions
+- Live chat between interviewer and candidate during session
+- Creating, joining and ending interview sessions
+- Code editor that both users see and edit at the same time
+- Auto-saving new users to database when they sign up
+- Running code in Python, JavaScript, Java and C++ inside the app
+
+---
+
+## Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| React + Vite + Tailwind | Frontend UI |
+| Node.js + Express | Backend server |
+| MongoDB + Mongoose | Database |
+| Clerk | Authentication |
+| Stream SDK | Video calls and live chat |
+| Socket.io | Real-time code sync |
+| Inngest | Background jobs |
+| Piston API | Code execution |
+
+---
+
+## Getting Started
+
+```bash
+# Clone the repo
+git clone https://github.com/your-username/Talent-IQ.git
+cd Talent-IQ
+
+# Backend
+cd backend
+npm install
+npm run dev
+
+# Frontend
+cd frontend
+npm install
+npm run dev
+```
+
+Create a `.env` file in backend:
+
+```
+PORT=5000
+MONGO_URI=your_mongodb_connection
+CLERK_SECRET_KEY=your_clerk_key
+STREAM_API_KEY=your_stream_key
+STREAM_API_SECRET=your_stream_secret
+```
+
+---
+
+## How to Contribute
+
+1. Fork the repository
+2. Create a new branch — `git checkout -b feature/your-feature`
+3. Make your changes
+4. Commit — `git commit -m "feat: describe what you did"`
+5. Push — `git push origin feature/your-feature`
+6. Open a Pull Request on GitHub
+
+---
+
+## Reporting a Bug
+
+Open a GitHub Issue and include what went wrong, what you expected, and steps to reproduce it.
